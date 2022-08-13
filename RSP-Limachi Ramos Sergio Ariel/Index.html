@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPP</title>
+</head>
+<body>
+    <main>
+        <div class="Espera">
+            <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300">
+                <circle id="arc1" class="circle" cx="150" cy="150" r="120" opacity=".89" fill="none" stroke="#632b26" stroke-width="12" stroke-linecap="square" stroke-opacity=".99213" paint-order="fill markers stroke"/>
+                <circle id="arc2" class="circle" cx="150" cy="150" r="120" opacity=".49" fill="none" stroke="#632b26" stroke-width="8" stroke-linecap="square" stroke-opacity=".99213" paint-order="fill markers stroke"/>
+                <circle id="arc3" class="circle" cx="150" cy="150" r="100" opacity=".49" fill="none" stroke="#632b26" stroke-width="20" stroke-linecap="square" stroke-opacity=".99213" paint-order="fill markers stroke"/>
+                <circle id="arc4" class="circle" cx="150" cy="150" r="120" opacity=".49" fill="none" stroke="#632b26" stroke-width="30" stroke-linecap="square" stroke-opacity=".99213" paint-order="fill markers stroke"/>
+                <circle id="arc5" class="circle" cx="150" cy="150" r="100" opacity=".89" fill="none" stroke="#632b26" stroke-width="8" stroke-linecap="square" stroke-opacity=".99213" paint-order="fill markers stroke"/>
+                <circle id="arc6" class="circle" cx="150" cy="150" r="90" opacity=".49" fill="none" stroke="#632b26" stroke-width="16" stroke-linecap="square" stroke-opacity=".99213" paint-order="fill markers stroke"/>
+                <circle id="arc7" class="circle" cx="150" cy="150" r="90" opacity=".89" fill="none" stroke="#632b26" stroke-width="8" stroke-linecap="square" stroke-opacity=".99213" paint-order="fill markers stroke"/>
+                <circle id="arc8" class="circle" cx="150" cy="150" r="80" opacity=".79" fill="#4DD0E1"
+              fill-opacity="10%"         stroke="#632b26" stroke-width="8" stroke-linecap="square" stroke-opacity=".99213" paint-order="fill markers stroke"/>
+                <--text id="text" x="126" y="125">
+                  ITER
+                </--text>
+                <--text id="text" x="90" y="155">
+                  ROBOTICS
+                </--text>
+                <--text id="text" x="126" y="185">
+                  CLUB
+                </--text>
+                
+              </svg>
+        </div>
+                <section id="principal">
+                    <h1>Datos</h1>
+                    <table id="miTabla">
+                    <thead>
+                        <th class="id" id="OId"> ID </th>
+                        <th class="nombre" id="ONombre"> Nombre </th>
+                        <th class="apellido" id="OApellido"> Apellido </th>
+                        <th class="edad" id="OEdad"> Edad </th>
+                        <th class="alterego" id="OEquipo"> AlterEgo</th>
+                        <th class="ciudad" id="OPosicion"> Ciudad </th>
+                        <th class="publicado" id="OCantidadGoles"> Publicado </th>
+                        <th class="enemigo" id="OTitulo"> Enemigo </th>
+                        <th class="robos" id="OFacultad"> Robos </th>
+                        <th class="asesinatos" id="OAñoGraduacion"> Asesinatos </th>
+                        <th> </th>
+                        <th> </th>
+                    </thead>
+                    </table>
+                <button  id="agregar">AGREGAR</button>
+                </section>
+                
+                <section id="desplegable" class="invisible">
+                    <form action="" name="fAgregar" id="fAgregar"  enctype="multipart/form-data">
+                        <p>ID:</p>
+                        <input type="text" disabled name="id">
+                        <p>Nombre</p>
+                        <input type="text" name="nombre">
+                        <p>Apellido</p>
+                        <input type="text" name="apellido">
+                        <p>Edad</p>
+                        <input type="text" name="edad">
+                        <p> Tipo</p>
+                        <select name="tipo" id="tipox" >
+                            <option value="Heroe">Heroe</option> 
+                            <option value="Villano">Villano</option> 
+                        </select>
+    
+                        
+                    </form>
+                    <section>
+                        <button id="alta" > Agregar </button>
+                    </section>
+                    
+                </section> 
+    </main>
+
+
+
+
+    <script>
+
+    class Persona{
+        id;
+        nombre;
+        apellido;
+        edad;
+        constructor(id, nombre, apellido, edad){
+            this.id=id;
+            this.nombre=nombre;
+            this.apellido=apellido;
+            this.edad=edad;
+        }
+        toString(){
+            return '"nombre":"'+ this.nombre+'","apellido":"'+this.apellido+'","edad":'+this.edad;
+        }
+        toStringRow(){
+            return '<td class="id">'+this.id+'</td><td class="nombre">'+this.nombre+'</td><td class="apellido">'+this.apellido+'</td><td class="edad">'+this.edad+'</td>';
+        }
+    }
+    class Heroe extends Persona{
+        alterego;
+        ciudad;
+        publicado;
+        constructor(id, nombre,apellido, edad , alterEgo, ciudad, publicado){
+            super(id,nombre,apellido,edad);
+            this.alterego=alterEgo;
+            this.ciudad=ciudad;
+            this.publicado=publicado;
+        }
+        toString(){
+            return '{'+super.toString()+',"alterego":"'+ this.alterego+'","ciudad":"'+this.ciudad+'","publicado":'+this.publicado+'}';
+        }
+        toStringRow(){
+            return '<tr>'+super.toStringRow()+'<td class="alterego">'+this.alterego+'</td><td class="ciudad">'+this.ciudad+'</td><td class="publicado">'+this.publicado+'</td><td class="enemigo">N/A</td><td class="robos">N/A</td><td class="asesinatos">N/A</td> <td> <button id="m'+this.id+'"> Modificiar </button> </td> <td> <button id="d'+this.id+'"> Eliminar</button> </td> </tr>';
+        }
+        toStringMod(){
+            return '{"id":'+this.id+','+super.toString()+',"alterego":"'+ this.alterego+'","ciudad":"'+this.ciudad+'","publicado":'+this.publicado+'}';
+        }
+    }
+    class Villano extends Persona{
+        enemigo;
+        robos;
+        asesinatos;
+        constructor(id, nombre,apellido, edad , enemigo, robos, asesinatos){
+            super(id,nombre,apellido,edad);
+            this.enemigo=enemigo;
+            this.robos=robos;
+            this.asesinatos=asesinatos;
+        }
+        toString(){
+            return '{'+super.toString()+',"enemigo":"'+ this.enemigo+'","robos":"'+this.robos+'","asesinatos":'+this.asesinatos+'}'
+        }
+        toStringRow(){
+            return '<tr>'+super.toStringRow()+'<td class="alterego">'+'N/A'+'</td><td class="ciudad">'+'N/A'+'</td><td class="publicado">'+'N/A'+'</td><td class="enemigo">'+this.enemigo+'</td><td class="robos">'+this.robos+'</td><td class="asesinatos">'+this.asesinatos+'</td> <td> <button id="m'+this.id+'"> Modificiar </button> </td> <td> <button id="d'+this.id+'"> Eliminar</button> </td> </tr>';
+        }
+        toStringMod(){
+            return '{"id":'+this.id+','+super.toString()+',"enemigo":"'+ this.enemigo+'","robos":"'+this.robos+'","asesinatos":'+this.asesinatos+'}'
+        }
+    }
+    
+    let datosCargados=new Array();
+
+    const tabla=document.getElementById('miTabla');
+
+function CargarTodo(){
+    for(let i=0;i<datosCargados.length;i++){
+        tabla.insertRow(-1).innerHTML = datosCargados[i].toStringRow();
+        addEventoModificar(datosCargados[i].id);
+    }
+};
+function limpiarTabla(){
+    var table = document.getElementById("miTabla");
+    var rowCount = table.rows.length;
+    for(let i=rowCount;i>1;i--){
+        table.deleteRow(i -1);
+    }
+}
+function OcultarColumna(SelectorDeCheckbox, ClaseAControlar){
+    document.querySelector(SelectorDeCheckbox).addEventListener('change',()=>{
+    let estoySelecionado=document.querySelector(SelectorDeCheckbox).checked;
+    
+    const todos=document.querySelectorAll(ClaseAControlar);
+    console.log(todos);
+    if(!estoySelecionado){
+        
+        for(let i=0;i<todos.length;i++){
+            todos[i].className+=' invisible';
+        }
+    }
+    else{
+        for(let i=0;i<todos.length;i++){
+            todos[i].classList.remove('invisible');
+        }
+    }
+    });
+};
+
+
+document.querySelector('button#agregar').addEventListener('click',e=>{
+    e.preventDefault();
+    OcultarUMostarFormulario();
+});
+
+function CargarFormularioSegunTypoUsuario(){
+    const myform=document.forms['fAgregar'];
+    var input = document.createElement("input");
+    var input2=document.createElement("input");
+    var input3=document.createElement("input");
+    input.id="myInputD1";
+    input2.id="myInputD2";
+    input3.id="myInputD3";
+
+    let i1=document.getElementById("myInputD1");
+    let i2=document.getElementById("myInputD2");
+    let i3=document.getElementById("myInputD3");
+
+    if(i1!=undefined && i2!=undefined && i3!=undefined){
+        myform.removeChild(i1);
+        myform.removeChild(i2);
+        myform.removeChild(i3);
+    }
+    let filtro=document.querySelector('form select#tipox');
+    if(filtro.options[filtro.selectedIndex].value == "Heroe"){
+        input.name="alterego";
+        input.placeholder="AlterEgo";
+        
+        input2.name= "ciudad";
+        input2.placeholder="ciudad";
+
+        input3.name= "publicado";
+        input3.placeholder="Año de Publicacion";
+    }
+    else{
+        input.name="enemigo";
+        input.placeholder="Enemigo";
+        
+        input2.name= "robos";
+        input2.placeholder="Numero de Robos";
+
+        input3.name= "asesinatos";
+        input3.placeholder="Numero de Asesinatos";
+    }
+    myform.appendChild(input);
+    myform.appendChild(input2);
+    myform.appendChild(input3);
+}
+
+CargarFormularioSegunTypoUsuario();
+document.querySelector('form select#tipox').addEventListener('change',CargarFormularioSegunTypoUsuario);
+
+
+function AltaPersona(){
+    const myform=document.forms['fAgregar'];
+    var nuevo;
+    
+    if(myform.tipo.options[myform.tipo.selectedIndex].value=="Heroe"){
+        nuevo= new Heroe(1,myform.nombre.value,myform.apellido.value,myform.edad.value,myform.alterego.value, myform.ciudad.value,myform.publicado.value);
+        
+    }
+    else{
+        nuevo= new Villano(1,myform.nombre.value,myform.apellido.value,myform.edad.value,myform.enemigo.value, myform.robos.value,myform.asesinatos.value);
+    }
+    console.log(nuevo.toString());
+    modoEsperaActivarDesactivar();
+    fetch('http://localhost/labo3/personasHeroesVillanos.php', {
+        method: 'PUT',
+        body:nuevo.toString()
+    }).then(function(response){
+        if(response.ok) {
+            return response.json();
+        } else {
+            throw "Error en la llamada Ajax";
+        }
+    }).then(r=>{
+        nuevo.id=r.id;
+        datosCargados.push(nuevo);
+        limpiarTabla();
+        CargarTodo();
+        modoEsperaActivarDesactivar();
+    }).catch(function(err) {
+        console.log(err);
+    });
+}
+document.getElementById('alta').addEventListener('click',(e)=>{
+    e.preventDefault();
+    let error=false;
+
+    const myform=document.forms['fAgregar'];
+    if(myform.nombre.value=="") {
+            error=true;
+            myform.nombre.style.borderColor= 'red';
+    }else {
+        myform.nombre.style.borderColor= 'inherit';
+    }
+    if(myform.apellido.value=="") {
+            error=true;
+            myform.apellido.style.borderColor= 'red';
+    }else {
+        myform.apellido.style.borderColor= 'inherit';
+    }
+    if(myform.edad.value=="") {
+            error=true;
+            edad.velMax.style.borderColor= 'red';
+    }else {
+        myform.edad.style.borderColor= 'inherit';
+    }
+    if(myform.tipo.options[myform.tipo.selectedIndex].value=="Heroe"){
+        if(myform.alterego.value=="") {
+            error=true;
+            myform.alterego.style.borderColor= 'red';
+        }else {
+            myform.alterego.style.borderColor= 'inherit';
+        }
+        if(myform.ciudad.value=="") {
+            error=true;
+            myform.ciudad.style.borderColor= 'red';
+        }else {
+            myform.ciudad.style.borderColor= 'inherit';
+        }
+        if(myform.publicado.value=="") {
+            error=true;
+            myform.publicado.style.borderColor= 'red';
+        }else {
+            myform.publicado.style.borderColor= 'inherit';
+        }
+    }
+    else{
+        if(myform.enemigo.value=="") {
+            error=true;
+            myform.enemigo.style.borderColor= 'red';
+        }else {
+            myform.enemigo.style.borderColor= 'inherit';
+        }
+        if(myform.robos.value=="") {
+            error=true;
+            myform.robos.style.borderColor= 'red';
+        }else {
+            myform.robos.style.borderColor= 'inherit';
+        }
+        if(myform.asesinatos.value=="") {
+            error=true;
+            myform.asesinatos.style.borderColor= 'red';
+        }else {
+            myform.asesinatos.style.borderColor= 'inherit';
+        }
+    }
+    if(document.getElementById('alta').innerHTML=="Guardar Cambios"){
+         saveChanges();
+    }
+    else{
+        if(!error){
+        AltaPersona();
+        limpiarFormulario();
+        OcultarUMostarFormulario();
+    }
+    }
+    
+    
+});
+function limpiarFormulario(){
+    const myform=document.forms['fAgregar'];
+    myform.id.value="";
+    myform.nombre.value="";
+    myform.apellido.value="";
+    myform.edad.value="";
+    
+    if(myform.tipo.options[myform.tipo.selectedIndex].value=="Heroe"){
+        myform.alterego.value= "";
+        myform.ciudad.value="";
+        myform.publicado.value="";
+    }
+    else{
+        myform.enemigo.value="";
+        myform.robos.value="";
+        myform.asesinatos="";
+    }
+}
+function mostrarFilaSeleccionada(){
+    var table = document.getElementById("miTabla");
+    for(let i=1;i<table.rows.length;i++){
+        table.rows[i].addEventListener('click',(e)=>{
+            const boton=document.querySelector('button#agregar');
+    
+            const desplegable=document.querySelector("section#desplegable");
+            console.log(boton);
+            if(boton.innerHTML=="AGREGAR"){
+                desplegable.style.display="flex";
+                boton.innerHTML="Cancelar";
+            }
+            const myform=document.forms['fAgregar'];
+            myform.id.value=table.rows[i].cells[0].innerHTML;
+            myform.nombre.value=table.rows[i].cells[1].innerHTML;
+            myform.apellido.value=table.rows[i].cells[2].innerHTML;
+            myform.edad.value=table.rows[i].cells[3].innerHTML;
+            if(table.rows[i].cells[4].innerHTML=="N/A"){
+                myform.tipo.selectedIndex=1;
+            }
+            else{
+                myform.tipo.selectedIndex=0;
+            }
+            CargarFormularioSegunTypoUsuario();
+            if(myform.tipo.options[myform.tipo.selectedIndex].value=="Futbolista"){
+                myform.equipo.value=table.rows[i].cells[4].innerHTML;
+                myform.posicion.value=table.rows[i].cells[5].innerHTML;
+                myform.cantidadGoles.value=table.rows[i].cells[6].innerHTML;
+            }
+            else if(myform.tipo.options[myform.tipo.selectedIndex].value=="Profesional"){
+                myform.titulo.value= table.rows[i].cells[7].innerHTML;
+                myform.facultad.value= table.rows[i].cells[8].innerHTML;
+                myform.añoGraduacion.value= table.rows[i].cells[8].innerHTML;
+            }
+            
+        })
+    }
+}
+mostrarFilaSeleccionada();
+
+
+async function  saveChanges(){
+    const myform=document.forms['fAgregar'];
+    let mod;
+    if(myform.id.value!=""){
+        for(let i=0;i<datosCargados.length;i++){
+            if(datosCargados[i].id==myform.id.value){
+                if(datosCargados[i] instanceof Heroe){
+                    mod=new Heroe(datosCargados[i].id,myform.nombre.value,myform.apellido.value,myform.edad.value,myform.alterego.value,myform.ciudad.value,myform.publicado.value);
+                }
+                else if(datosCargados[i] instanceof Villano){
+                    mod=new Villano(datosCargados[i].id,myform.nombre.value,myform.apellido.value,myform.edad.value,myform.enemigo.value,myform.robos.value,myform.asesinatos.value);
+                }
+                console.log("CONSULTO!!");
+                modoEsperaActivarDesactivar();
+                fetch('http://localhost/labo3/personasHeroesVillanos.php', {
+                    method: 'POST',
+                    body:mod.toStringMod()
+                }).then(function(response){
+                    if(response.ok) {
+                        return response.text();
+                    } else {
+                        throw "Error en la llamada Ajax";
+                    }
+                }).then(r=>{
+                    datosCargados[i]=mod;
+                        modoEsperaActivarDesactivar();
+                        limpiarTabla();
+                        CargarTodo();
+                        limpiarFormulario();
+                        OcultarUMostarFormulario();
+                    console.log(r);
+
+                }).catch(function(err) {
+                    console.log(err);
+                });
+                
+               
+                        
+               
+            }
+        }     
+    }
+}
+
+
+function guardadCambios(){
+    if(datosCargados[i] instanceof Heroe){
+                    mod=new Heroe(datosCargados[i].id,myform.nombre.value,myform.apellido.value,myform.edad.value,myform.alterego.value,myform.ciudad.value,myform.publicado.value);
+                    
+                }
+                else if(datosCargados[i] instanceof Villano){
+                    mod=new Villano(datosCargados[i].id,myform.nombre.value,myform.apellido.value,myform.edad.value,myform.enemigo.value,myform.robos.value,myform.asesinatos.value);
+                }
+}
+function addEventoModificar(idBoton){
+    console.log(idBoton);
+    document.getElementById("m"+idBoton).addEventListener("click",e=>{
+        e.preventDefault();
+        console.log("HACIENDO CLICK " + idBoton);
+        const myform=document.forms['fAgregar'];
+        for(let i=0;i<datosCargados.length;i++){
+            if(datosCargados[i].id==idBoton){
+                if(datosCargados[i] instanceof Heroe){
+                    myform.tipo.selectedIndex=0;
+                }
+                else{
+                    myform.tipo.selectedIndex=1;
+                }
+                
+                CargarFormularioSegunTypoUsuario();
+                limpiarFormulario();
+                OcultarUMostarFormulario();
+                
+                myform.id.value=datosCargados[i].id;
+                myform.nombre.value=datosCargados[i].nombre;
+                myform.apellido.value=datosCargados[i].apellido;
+                myform.edad.value=datosCargados[i].edad;
+                if(myform.tipo.options[myform.tipo.selectedIndex].value=="Heroe"){
+                myform.alterego.value=datosCargados[i].alterego;
+                myform.ciudad.value=datosCargados[i].ciudad;
+                myform.publicado.value=datosCargados[i].publicado;
+                }
+                else if(myform.tipo.options[myform.tipo.selectedIndex].value=="Villano"){
+                    myform.enemigo.value=datosCargados[i].enemigo;
+                    myform.robos.value= datosCargados[i].robos;
+                    myform.asesinatos.value= datosCargados[i].asesinatos;
+                }
+                const boton=document.querySelector('button#alta');
+                const desplegable=document.querySelector("section#desplegable");
+                console.log(boton);
+                
+                boton.innerHTML="Guardar Cambios";
+                desplegable.style.display="flex";
+
+                break;
+            }
+        }     
+
+    });
+}
+function OcultarUMostarFormulario(){
+    const boton=document.querySelector('button#agregar');
+    const desplegable=document.querySelector("section#desplegable");
+    const boton2=document.querySelector('button#alta');
+            console.log(boton);
+            if(boton.innerHTML=="AGREGAR"){
+                desplegable.style.display="flex";
+                boton.innerHTML="Cancelar";
+                limpiarFormulario();
+            }
+            else{
+                boton.innerHTML="AGREGAR";
+                desplegable.style.display="none";
+                boton2.innerHTML="Agregar"
+                limpiarFormulario();
+            }
+}
+function EliminarPersona(){
+    const myform=document.forms['fAgregar'];
+
+    if(myform.id.value!=""){
+    
+        for(let i=0;i<datosCargados.length;i++){
+            if(datosCargados[i].id==myform.id.value){
+                datosCargados.splice(i,i);
+                break;
+            }
+        }     
+    }
+}
+/*document.getElementById('delete').addEventListener('click',(e)=>{
+    e.preventDefault();
+    EliminarPersona();
+    CargarSegunSeleccionActual();
+    mostrarFilaSeleccionada();
+    alert("Elemento Eliminado!");
+    limpiarFormulario();
+    OcultarUMostarFormulario();
+});*/
+
+function cargarInfodesdeAPI1(){
+    var Req = new XMLHttpRequest();
+
+    Req.onreadystatechange=function(){
+        if(this.readyState==4 && this.status==200){
+           CargarDatosaDatos( JSON.parse(this.responseText));
+           CargarTodo();
+           document.querySelector("div.Espera").style.display="none";
+            document.querySelector("#principal").style.display="flex";
+        }
+    }
+    Req.open("GET", "http://localhost/labo3/personasHeroesVillanos.php");
+    Req.send(); 
+}
+
+function CargarDatosaDatos(datos){
+    for(let i=0;i<datos.length;i++){
+        if(datos[i].alterego!= undefined && datos[i].ciudad!=undefined && datos[i].publicado!=undefined){
+            let nuevo=new Heroe(datos[i].id, datos[i].nombre,datos[i].apellido,datos[i].edad, datos[i].alterego, datos[i].ciudad,datos[i].publicado);
+            datosCargados.push(nuevo);
+        }
+        else if(datos[i].enemigo!=undefined && datos[i].robos!=undefined && datos[i].asesinatos!=undefined){
+            let nuevo=new Villano(datos[i].id, datos[i].nombre,datos[i].apellido,datos[i].edad,datos[i].enemigo, datos[i].robos,datos[i].asesinatos);
+            datosCargados.push(nuevo);
+        }
+    }
+}
+cargarInfodesdeAPI1();
+
+function modoEsperaActivarDesactivar(){
+    if(document.querySelector("div.Espera").style.display=="flex"&& document.querySelector("#principal").style.display=="none"){
+        document.querySelector("div.Espera").style.display="none";
+        document.querySelector("#principal").style.display="flex";
+    }
+    else{
+        document.querySelector("div.Espera").style.display="flex";
+        document.querySelector("#principal").style.display="none";
+    }
+}
+    </script>
+    <style>
+
+
+
+/*stylos del spinner*/
+body{
+    background: black;
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Cg fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.4"%3E%3Cpath opacity=".5" d="M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z"/%3E%3Cpath d="M6 5V0H5v5H0v1h5v94h1V6h94V5H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+    opacity: 100%;
+    color: white;
+  }
+  
+  svg{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+  svg circle{
+    stroke: #4DD0E1;
+  }
+  
+  .circle{
+    transform-origin: center ;
+  }
+  #arc1{
+    stroke-dasharray: 30;
+    stroke-dashoffset: 18;
+    animation: 10s -2s rota infinite linear;
+  }
+  #arc3{
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: 16s 1s rota infinite linear;
+  }
+  #arc4{
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: 6s 1s rota infinite linear reverse;
+  }
+  #arc5{
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: 4s 1s rota infinite linear;
+  }
+  #arc6{
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: 8s 1s rota infinite linear alternate;
+  }
+  #arc7{
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: 4s 1s rota infinite linear reverse;
+  }
+  text{
+   fill: #ffffff;
+   font: bold 24px sans-serif;
+  }
+  @keyframes rota{
+    from{
+      transform: rotate(0deg);
+    }
+    to{
+      transform: rotate(360deg);
+    }
+  }
+  .Espera{
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      background-color: white;
+      opacity: 50%;
+  }
+  /*fin de estilos del spinner*/
+        main{
+            width: 100%;
+            background: skyblue;
+            text-align: center;
+        }
+        section{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin: 2%;
+            width: 100%;
+
+        }
+        section.option{
+            margin: 3%;
+        }
+        section.option div{
+            border: 1px solid white;
+        }
+        table{
+            width: 100%;
+        }
+        th{
+            border: 1px solid white;
+        }
+        td{
+            border: 1px solid white;
+        }
+        section#desplegable{
+            flex-direction: column;
+            width: 90%;
+            margin: 5%;
+        }
+        section#desplegable form{
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            margin: auto;
+        }
+        section#desplegable form input{
+            margin-top: 2%;
+            margin-bottom: 2%;
+        
+        }
+        section#desplegable section{
+            flex-direction: row;
+        }
+        section#desplegable button{
+            width: 20%;
+            margin: 2%;
+        }
+        
+        .invisible{
+            display: none;    
+        }
+        #principal{
+            display: none;
+            flex-direction: column;
+            margin: auto;
+        }
+        #principal button{
+            width: 10vw;
+            margin: auto;
+
+        }
+    </style>
+    </body>
+</html>
